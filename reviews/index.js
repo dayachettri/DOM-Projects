@@ -29,3 +29,74 @@ const reviews = [
     text: 'Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic. ',
   },
 ];
+
+// select items
+const img = document.querySelector('#person-img');
+const author = document.querySelector('#author');
+const job = document.querySelector('#job');
+const info = document.querySelector('#info');
+
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+const randomBtn = document.querySelector('.random-btn');
+
+// set starting item
+let currentItem = 0;
+
+// show person based on item
+const showPerson = function () {
+  const item = reviews[currentItem];
+  img.src = item.img;
+  author.textContent = item.name;
+  job.textContent = item.job;
+  info.textContent = item.text;
+};
+
+// load initial item
+window.addEventListener('DOMContentLoaded', showPerson());
+
+// show next person
+nextBtn.addEventListener('click', function () {
+  currentItem++;
+  if (currentItem > reviews.length - 1) {
+    currentItem = 0;
+  }
+  showPerson();
+});
+
+// show prev person
+prevBtn.addEventListener('click', function () {
+  currentItem--;
+  if (currentItem < 0) {
+    currentItem = reviews.length - 1;
+  }
+  showPerson();
+});
+
+// show random person
+randomBtn.addEventListener('click', function () {
+  currentItem = Math.floor(Math.random() * reviews.length);
+  showPerson();
+});
+
+//* Using fromEach method selecting all buttons at once and adding event listeners to them
+// const buttons = document.querySelectorAll('button');
+
+// buttons.forEach(button => {
+//   button.addEventListener('click', e => {
+//     if (e.currentTarget.classList.contains('next-btn')) {
+//       currentItem++;
+//       if (currentItem > reviews.length - 1) {
+//         currentItem = 0;
+//       }
+//     } else if (e.currentTarget.classList.contains('prev-btn')) {
+//       currentItem--;
+//       if (currentItem < 0) {
+//         currentItem = reviews.length - 1;
+//       }
+//     } else if (e.currentTarget.classList.contains('random-btn')) {
+//       currentItem = Math.floor(Math.random() * reviews.length - 1) + 1;
+//     }
+//     showPerson();
+//   });
+// });
